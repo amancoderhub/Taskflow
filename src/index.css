@@ -1,0 +1,224 @@
+:root {
+  /* Light Mode (Default) */
+  --bg-main: #f3f4f6;
+  --bg-card: #ffffff;
+  --bg-hover: #f9fafb;
+  --text-main: #111827;
+  --text-muted: #6b7280;
+  --border: #e5e7eb;
+
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+  --primary-light: #eef2ff;
+
+  --danger: #ef4444;
+  --danger-bg: #fef2f2;
+  --success: #10b981;
+  --success-bg: #ecfdf5;
+  --warning: #f59e0b;
+  --warning-bg: #fef3c7;
+
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+.dark {
+  /* Dark Mode Overrides */
+  --bg-main: #111827;
+  --bg-card: #1f2937;
+  --bg-hover: #374151;
+  --text-main: #f9fafb;
+  --text-muted: #9ca3af;
+  --border: #374151;
+
+  --primary: #6366f1;
+  --primary-hover: #818cf8;
+  --primary-light: #312e81;
+
+  --danger: #f87171;
+  --danger-bg: #450a0a;
+  --success: #34d399;
+  --success-bg: #064e3b;
+  --warning: #fbbf24;
+  --warning-bg: #451a03;
+
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+  --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.3), 0 1px 2px -1px rgb(0 0 0 / 0.3);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+}
+
+body {
+  margin: 0;
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
+}
+
+/* Utility Classes */
+.flex {
+  display: flex;
+}
+.items-center {
+  align-items: center;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.gap-2 {
+  gap: 0.5rem;
+}
+.gap-4 {
+  gap: 1rem;
+}
+.p-4 {
+  padding: 1rem;
+}
+.rounded-lg {
+  border-radius: 0.5rem;
+}
+.font-bold {
+  font-weight: 700;
+}
+.text-sm {
+  font-size: 0.875rem;
+}
+.cursor-pointer {
+  cursor: pointer;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+/* Responsive Layout Classes */
+.board-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: var(--bg-main);
+  color: var(--text-main);
+}
+
+.board-main {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.board-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.activity-log {
+  width: 250px;
+  background: var(--bg-card);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  overflow-y: auto;
+  transition: transform 0.3s ease;
+}
+
+.columns-container {
+  flex: 1;
+  display: flex;
+  gap: 24px;
+  padding: 24px;
+  overflow-x: auto;
+  align-items: flex-start;
+  background: var(--bg-main);
+}
+
+.task-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  backdrop-filter: blur(4px);
+  padding: 16px;
+}
+
+.task-modal {
+  background: var(--bg-card);
+  width: 100%;
+  max-width: 500px;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: var(--shadow-md);
+  color: var(--text-main);
+  border: 1px solid var(--border);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .board-main {
+    flex-direction: column;
+  }
+
+  .activity-log {
+    display: none; /* Hide activity log on mobile to save space */
+  }
+
+  .columns-container {
+    padding: 16px;
+    gap: 16px;
+    scroll-snap-type: x mandatory;
+  }
+
+  .column {
+    min-width: 85vw; /* Columns take full width on mobile */
+    scroll-snap-align: center;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr; /* Stack form fields */
+  }
+}
