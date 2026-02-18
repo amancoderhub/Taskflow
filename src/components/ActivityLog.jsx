@@ -16,11 +16,11 @@ const dotColors = {
   red: "var(--danger)",
 };
 
-export default function ActivityLog({ onReset }) {
+export default function ActivityLog({ onReset, className, onClose }) {
   const { log } = useTasks();
   return (
-    <div className="activity-log">
-      <div style={{ padding: "16px 16px 8px" }}>
+    <div className={`activity-log ${className || ""}`}>
+      <div style={{ padding: "16px 16px 8px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <div
           style={{
             fontSize: 11,
@@ -32,6 +32,21 @@ export default function ActivityLog({ onReset }) {
         >
           Activity Log
         </div>
+        {/* Close button for mobile */}
+        <button 
+          onClick={onClose}
+          className="mobile-close-btn"
+          style={{
+            background: "transparent",
+            border: "none",
+            color: "var(--text-muted)",
+            cursor: "pointer",
+            padding: 4,
+            display: "none" // Hidden by default, shown on mobile via CSS
+          }}
+        >
+          ✕
+        </button>
       </div>
       <div style={{ flex: 1 }}>
         {log.map((a) => (

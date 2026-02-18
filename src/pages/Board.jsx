@@ -8,7 +8,7 @@ import TaskForm from "../components/TaskForm";
 import SearchBar from "../components/SearchBar";
 import Filter from "../components/Filter";
 import Sort from "../components/Sort";
-import { Sun, Moon, LogOut } from "lucide-react";
+import { Sun, Moon, LogOut, Menu } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
@@ -31,6 +31,7 @@ export default function Board() {
   const [isDark, setIsDark] = useState(
     () => localStorage.getItem("tf_theme") === "dark",
   );
+  const [showMobileLog, setShowMobileLog] = useState(false);
 
   useEffect(() => {
     if (isDark) document.documentElement.classList.add("dark");
@@ -104,6 +105,23 @@ export default function Board() {
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+          <button
+            onClick={() => setShowMobileLog(!showMobileLog)}
+            style={{
+              background: "transparent",
+              border: "none",
+              cursor: "pointer",
+              color: "var(--text-main)",
+              padding: 4,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+            className="mobile-toggle-btn"
+            title="Toggle Activity Log"
+          >
+            <Menu size={24} />
+          </button>
           <div
             style={{
               width: 32,
@@ -167,20 +185,14 @@ export default function Board() {
       </div>
 
       <div className="board-main">
-        <ActivityLog onReset={handleReset} />
+        <ActivityLog 
+          onReset={handleReset} 
+          className={showMobileLog ? "mobile-open" : ""} 
+          onClose={() => setShowMobileLog(false)}
+        />
 
         <div className="board-content">
-          <div
-            style={{
-              padding: "16px 24px",
-              display: "flex",
-              alignItems: "center",
-              gap: 12,
-              borderBottom: "1px solid var(--border)",
-              background: "var(--bg-card)",
-              flexShrink: 0,
-            }}
-          >
+          <div className="board-toolbar">
             <SearchBar value={search} onChange={setSearch} />
             <div
               style={{

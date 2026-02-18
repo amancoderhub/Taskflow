@@ -12,12 +12,9 @@ export default function Column({ id, label, tasks, onEdit, onDelete }) {
 
   return (
     <div
+      className="column"
       style={{
-        flex: 1,
-        minWidth: 300,
-        maxWidth: 400,
-        display: "flex",
-        flexDirection: "column",
+        // specific generic styles moved to CSS, keep only if dynamic
       }}
     >
       <div
